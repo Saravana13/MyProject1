@@ -1,10 +1,17 @@
 package com.saravana.myproject1.controller;
 
 import com.saravana.myproject1.models.Product;
+import com.saravana.myproject1.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
+
+    private ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     //CRUD APIs around product
 
@@ -16,8 +23,9 @@ public class ProductController {
 
     }
     //To get Product using id
-
-    public Product getProductByID(Long id) {
+    @GetMapping("/products/{id}")
+    public Product getProductByID(@PathVariable("id") Long id) {
+        productService.getSingleProduct(id);
         return null;
     }
     //To update Product
