@@ -74,3 +74,15 @@ public class Product {
         this.category = category;
     }
 }
+//{
+//        "id": 21,
+//        "title": "apple phone",
+//        "description": "This is description",
+//        "price": 109.95,
+//        "imageUrl": null,
+//        "category": {
+//        "id": null,
+//        "title": "apple",
+//        "description": null
+//        }
+//        }
