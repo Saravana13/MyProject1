@@ -4,6 +4,7 @@ import com.saravana.myproject1.dto.ErrorDto;
 import com.saravana.myproject1.exceptions.ProductNotFoundException;
 import com.saravana.myproject1.models.Product;
 import com.saravana.myproject1.service.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("selfProductService") ProductService productService) {
         this.productService = productService;
     }
 

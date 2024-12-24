@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-@Service
+@Service(value = "fakeStoreProductService")
 public class FakeStoreProductService implements ProductService{
 
     //Inside this, fake store third party going to be added
