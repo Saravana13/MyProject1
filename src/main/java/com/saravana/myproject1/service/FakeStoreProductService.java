@@ -2,6 +2,7 @@ package com.saravana.myproject1.service;
 
 import com.saravana.myproject1.dto.FakeStoreProductDto;
 import com.saravana.myproject1.exceptions.ProductNotFoundException;
+import com.saravana.myproject1.models.Category;
 import com.saravana.myproject1.models.Product;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -39,8 +40,18 @@ public class FakeStoreProductService implements ProductService{
         return p;
     }
 
+    @Override
+    public Category getSingleCategory(long id) {
+        return null;
+    }
+
 
     public List<Product> getAllProducts() {
+        return List.of();
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
         return List.of();
     }
 
@@ -102,6 +113,11 @@ public class FakeStoreProductService implements ProductService{
     public void deleteProduct(long id){
         restTemplate.delete("https://fakestoreapi.com/products/" + id);
         System.out.println("Product deleted");
+    }
+
+    @Override
+    public void deleteCategory(long id) {
+
     }
 
 }

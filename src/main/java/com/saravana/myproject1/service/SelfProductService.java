@@ -22,8 +22,7 @@ public class SelfProductService implements ProductService {
         this.categoryRepository = categoryRepository;
     }
 
-
-
+    //get
     @Override
     public Product getSingleProduct(long id) throws ProductNotFoundException {
         Optional<Product> p=productRepository.findById(id);
@@ -35,10 +34,25 @@ public class SelfProductService implements ProductService {
     }
 
     @Override
+    public Category getSingleCategory(long id) {
+        Category c=categoryRepository.findById(id);
+        return c;
+    }
+
+    // get all
+    @Override
     public List<Product> getAllProducts() {
+        List<Product> p=productRepository.getAllProducts();
+        return p;
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        List<Category> c=categoryRepository.getAllCategories();
         return List.of();
     }
 
+    //create
     @Override
     public Product createProduct(Long id, String name, String description, Double price, String imageUrl, String category) {
         Product p=new Product();
@@ -60,19 +74,42 @@ public class SelfProductService implements ProductService {
         p.setPrice(price);
         p.setImageUrl(imageUrl);
 
-
         Product savedProduct=productRepository.save(p);
 
         return savedProduct;
     }
-
+//update
     @Override
     public Product updateProduct(Long id, Product product) throws ProductNotFoundException {
-        return null;
+        Product p= getSingleProduct(id);
+        if(product.getTitle()!=null){
+            p.setTitle(product.getTitle());
+        }
+        if(product.getDescription()!=null){
+            p.setDescription(product.getDescription());
+        }
+        if(product.getPrice()!=null){
+            p.setPrice(product.getPrice());
+        }
+        if(product.getImageUrl()!=null){
+            p.setImageUrl(product.getImageUrl());
+        }
+        if(product.getCategory()!=null){
+            p.setCategory(product.getCategory());
+        }
+
+            productRepository.save(p);
+
+        return p;
+    }
+//delete
+    @Override
+    public void deleteProduct(long id) {
+        productRepository.deleteById(id);
     }
 
     @Override
-    public void deleteProduct(long id) {
-
+    public void deleteCategory(long id) {
+        categoryRepository.deleteById(id);
     }
 }
