@@ -22,6 +22,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query(value = "select * from product p",nativeQuery = true)
     List<Product> getAllProducts();
 
+    List<Product> getProductsByCategory(String category);
+
     //Implementing HQL
     @Query("SELECT p FROM Product p where p.category.id =:id")
     List<Product> getProductByCategoryId(@Param("id") Long id);

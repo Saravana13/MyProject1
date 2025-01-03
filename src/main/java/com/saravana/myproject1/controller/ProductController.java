@@ -15,6 +15,8 @@ import java.util.List;
 @RestController
 public class ProductController {
 
+
+    //Using self DB
     private final ProductService productService;
 
     public ProductController(@Qualifier("selfProductService") ProductService productService) {
@@ -58,6 +60,13 @@ public class ProductController {
         return response;
     }
 
+    //Get products in a specific category
+    @GetMapping("/products/{category name}")
+    public List<Product> getProductsByCategory(@PathVariable("category") String category){
+        List<Product> p=productService.getProductsByCategory(category);
+        return p;
+    }
+
     //To get All products
     @GetMapping("/products/all")
     public ResponseEntity<List<Product>> getAllProducts(){
@@ -94,20 +103,20 @@ public class ProductController {
         System.out.println("Product deleted, sending information");
     }
 
-    //To delete Category
-    @RequestMapping(value="/products/category/{id}",method = RequestMethod.DELETE)
-    public void deleteCategory(@PathVariable("id") Long id) {
-        System.out.println("Deleting a category");
-        productService.deleteCategory(id);
-        System.out.println("Category deleted, sending information");
-    }
+//    To delete Category
+//    @RequestMapping(value="/products/category/{id}",method = RequestMethod.DELETE)
+//    public void deleteCategory(@PathVariable("id") Long id) {
+//        System.out.println("Deleting a category");
+//        productService.deleteCategory(id);
+//        System.out.println("Category deleted, sending information");
+//    }
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorDto> handleProductNotFoundException(Exception e) {
         ErrorDto errorDto = new ErrorDto();
         errorDto.setMessage(e.getMessage());
 
-        ResponseEntity<ErrorDto> r=new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+        ResponseEntity<ErrorDto> r = new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
         return r;
     }
 }

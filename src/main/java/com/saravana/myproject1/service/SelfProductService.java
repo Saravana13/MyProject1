@@ -47,6 +47,12 @@ public class SelfProductService implements ProductService {
     }
 
     @Override
+    public List<Product> getProductsByCategory(String category) {
+        List<Product> p=productRepository.getProductsByCategory(category);
+        return List.of();
+    }
+
+    @Override
     public List<Category> getAllCategories() {
         List<Category> c=categoryRepository.getAllCategories();
         return List.of();
