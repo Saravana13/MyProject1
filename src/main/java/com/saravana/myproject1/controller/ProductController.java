@@ -17,7 +17,7 @@ public class ProductController {
 
 
     //Using self DB
-    private  ProductService productService;
+    private  final ProductService productService;
 
 
     public ProductController(@Qualifier("selfProductService") ProductService productService) {
@@ -45,43 +45,38 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public ResponseEntity<Product> getProductByID(@PathVariable("id") Long id) throws ProductNotFoundException {
         Product p=productService.getSingleProduct(id);
-        ResponseEntity<Product> response=new ResponseEntity<>(
+        return new ResponseEntity<>(
                 p, HttpStatus.OK
         );
-        return response;
     }
 
     //To get Category using id
     @GetMapping("/products/categories/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable("id") Long id){
         Category c =productService.getSingleCategory(id);
-        ResponseEntity<Category> response =new ResponseEntity<>(
+        return new ResponseEntity<>(
                 c, HttpStatus.OK
         );
-        return response;
     }
 
     //Get products in a specific category
     @GetMapping("/products/{category}")
     public List<Product> getProductsByCategory(@PathVariable("category") String category){
-        List<Product> p=productService.getProductsByCategory(category);
-        return p;
+        return productService.getProductsByCategory(category);
     }
 
     //To get All products
     @GetMapping("/products/all")
     public ResponseEntity<List<Product>> getAllProducts(){
         List<Product> p=productService.getAllProducts();
-        ResponseEntity<List<Product>> response=new ResponseEntity<>(p, HttpStatus.OK);
-        return response;
+        return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
     // To get All categories
     @GetMapping("/products/categories/all")
     public ResponseEntity<List<Category>> getAllCategories(){
         List<Category> c=productService.getAllCategories();
-        ResponseEntity<List<Category>> response=new ResponseEntity<>(c, HttpStatus.OK);
-        return response;
+        return new ResponseEntity<>(c, HttpStatus.OK);
     }
 
     //To update Product
@@ -104,20 +99,20 @@ public class ProductController {
         System.out.println("Product deleted, sending information");
     }
 
-//    To delete Category
-//    @RequestMapping(value="/products/category/{id}",method = RequestMethod.DELETE)
-//    public void deleteCategory(@PathVariable("id") Long id) {
-//        System.out.println("Deleting a category");
-//        productService.deleteCategory(id);
-//        System.out.println("Category deleted, sending information");
-//    }
+/*    To delete Category
+    @RequestMapping(value="/products/category/{id}",method = RequestMethod.DELETE)
+    public void deleteCategory(@PathVariable("id") Long id) {
+        System.out.println("Deleting a category");
+        productService.deleteCategory(id);
+        System.out.println("Category deleted, sending information");
+    }
+*/
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorDto> handleProductNotFoundException(Exception e) {
         ErrorDto errorDto = new ErrorDto();
         errorDto.setMessage(e.getMessage());
 
-        ResponseEntity<ErrorDto> r = new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
-        return r;
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
     }
 }
