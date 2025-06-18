@@ -5,6 +5,7 @@ import com.saravana.myproject1.repository.projections.ProductProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -22,7 +23,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query(value = "select * from product p",nativeQuery = true)
     List<Product> getAllProducts();
 
-    List<Product> getProductsByCategory(String category);
+    @Query(value="select * from product p join category c where c.Title=:category",nativeQuery = true)
+    List<Product> getProductsByCategory(@Param("category") String category);
 
     //Implementing HQL
     @Query("SELECT p FROM Product p where p.category.id =:id")

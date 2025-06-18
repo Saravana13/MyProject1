@@ -17,7 +17,8 @@ public class ProductController {
 
 
     //Using self DB
-    private final ProductService productService;
+    private  ProductService productService;
+
 
     public ProductController(@Qualifier("selfProductService") ProductService productService) {
         this.productService = productService;
@@ -61,7 +62,7 @@ public class ProductController {
     }
 
     //Get products in a specific category
-    @GetMapping("/products/{category name}")
+    @GetMapping("/products/{category}")
     public List<Product> getProductsByCategory(@PathVariable("category") String category){
         List<Product> p=productService.getProductsByCategory(category);
         return p;
