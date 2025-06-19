@@ -38,6 +38,13 @@ A Spring Boot–based backend application to manage products and categories for 
 | GET    | `/products/categories/all` | Get all categories       |
 
 ---
+## 🧪 Sample API Response
+
+`GET /products/all`
+
+![Get All Products API](screenshots/get-products-all.png)
+
+---
 
 ## 🔧 Setup Instructions
 
